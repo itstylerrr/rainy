@@ -1,0 +1,29 @@
+{
+  "name": "rainy",
+  "version": "1.0.0",
+  "description": "Comming soon...",
+  "main": "rainy.js",
+  "scripts": {
+    "start": "pm2 start rainy.js",
+    "dev": "nodemon rainy.js -e -js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itstylerrr/rainy.git"
+  },
+  "keywords": [],
+  "author": "Tyler Witkowski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/itstylerrr/rainy/issues"
+  },
+  "homepage": "https://github.com/itstylerrr/rainy#readme",
+  "dependencies": {
+    "canvas": "^2.8.0",
+    "chalk": "^4.1.2",
+    "discord.js": "^13.3.1",
+    "djs-helper-v13": "^1.0.20",
+    "moment": "^2.29.1",
+    "simply-djs": "^2.5.2"
+  }
+}
