@@ -2,8 +2,8 @@
 
 ## To Do:
 
-Get rainy running ✅ \n
-Create basic commands ✅ \n
+Get rainy running ✅ \
+Create basic commands ✅ \
 Create setup command and buttons ✅
 Add database support to buttons 🚧
 Add database support to bot ✅
