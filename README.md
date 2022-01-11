@@ -1,13 +1,12 @@
-<h1>⛈️ rainy - discord bot ⛈️</h1>
+#⛈️ rainy - discord bot ⛈️
 
-<h3>To Do:</h3>
-<p>
-Get rainy running ✅<br>
-Create basic commands ✅<br>
-Create setup command and buttons ✅<br>
-Add database support to buttons 🚧<br>
-Add database support to bot ✅<br>
-Add database models ❌<br>
-Add server settings command ❌<br>
+## To Do:
+
+Get rainy running ✅
+Create basic commands ✅
+Create setup command and buttons ✅
+Add database support to buttons 🚧
+Add database support to bot ✅
+Add database models ❌
+Add server settings command ❌
 ... More to come.
-</p>
