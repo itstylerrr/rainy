@@ -6,10 +6,10 @@ let color = "#36393f";
 const { button_pagination } = require("../../functions/dank");
 
 module.exports = {
-  name: "help-buttons",
-  aliases: ["hb"],
+  name: "help",
+  aliases: ["h"],
   emoji: "🚑",
-  description: "Shows all available bot commands, In button form.",
+  description: "Shows all available bot commands.",
   /**
    *
    * @param {Client} rainy

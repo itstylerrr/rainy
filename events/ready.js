@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const rainy = require("../rainy");
 const rainyConfig = require("../rainy.json");
 const chalk = require("chalk");
+const mongoose = require('mongoose')
 const { version: discordjsVersion } = require("discord.js");
 
 
@@ -68,4 +69,22 @@ rainy.on("ready", async (interaction) => {
       )} MB`
     )
   );
+  console.log("");
+  console.log(chalk.red.bold("——————————[MONGO]——————————"));
+  mongoose.connect(rainyConfig.mongoDb, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }).then(() => {
+    console.log(
+      chalk.gray(
+        `Rainy connected to MONGO database.`
+      )
+    )
+  }).catch((err) => {
+    console.log(
+      chalk.gray(
+        `MONGO ERR: ${err}`
+      )
+    )
+  })
 });

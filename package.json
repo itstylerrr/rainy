@@ -24,6 +24,7 @@
     "discord.js": "^13.3.1",
     "djs-helper-v13": "^1.0.20",
     "moment": "^2.29.1",
+    "mongoose": "^6.1.6",
     "simply-djs": "^2.5.2"
   }
 }
