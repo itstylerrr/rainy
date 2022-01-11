@@ -18,8 +18,12 @@
   </a>
 
 </div>
+    
+## 👋 Get Started:
+    
+Getting started with rainy is simple, just invite the bot to your server, and it will automatically send a message.
 
-## To Do:
+## ✔ To Do:
 
 Get rainy running ✅ \
 Create basic commands ✅ \
