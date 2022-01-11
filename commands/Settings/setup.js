@@ -34,7 +34,7 @@ module.exports = {
           .setStyle("PRIMARY"),
         new MessageButton()
           .setCustomId("gaBtn")
-          .setDisabled(true)
+          .setDisabled(false)
           .setLabel("🎉Giveaway🎟️")
           .setStyle("PRIMARY")
       );
@@ -75,6 +75,16 @@ module.exports = {
         .setFooter("💖made with love -tyler :)")
         .setTimestamp();
 
+        const gaClickedEmbed = new MessageEmbed()
+        .setTitle("⛈️rainy setup⛈️")
+        .setDescription(
+          "the settings that were changed/added/removed can be viewed down below"
+        )
+        .addFields({ name: "server type:", value: "🎉Giveaway🎟️" })
+        .setColor("GREEN")
+        .setFooter("💖made with love -tyler :)")
+        .setTimestamp();
+
       message.reply({
         embeds: [descEmbed],
         components: [btnRow],
@@ -94,15 +104,22 @@ module.exports = {
             embeds: [funClickedEmbed],
             components: [finishedRow],
           });
+        } else if (i.customId === "modBtn") {
+          await i.update({
+            embeds: [modClickedEmbed],
+            components: [finishedRow],
+          });
         } else {
-          if (i.customId === "modBtn") {
+          if (i.customId === "gaBtn") {
             await i.update({
-              embeds: [modClickedEmbed],
+              embeds: [gaClickedEmbed],
               components: [finishedRow],
-            })
+            });
           }
         }
       });
     }
   },
 };
+
+// savage! discord help buttnsons
