@@ -1,4 +1,4 @@
-# ⛈️ rainy - discord bot ⛈️
+<h1 align=center >⛈️ rainy - discord bot ⛈️ </h1>
 
 ## To Do:
 
