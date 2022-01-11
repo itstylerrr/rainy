@@ -1,4 +1,4 @@
-<h1>👀👀</h1>
+<h1>⛈️ rainy - discord bot ⛈️</h1>
 
 <h3>To Do:</h3>
 <p>
