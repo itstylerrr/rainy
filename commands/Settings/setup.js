@@ -1,3 +1,5 @@
+const guildProfile = require('../../models/guildSchema')
+
 const {
   MessageActionRow,
   MessageButton,
@@ -18,6 +20,7 @@ module.exports = {
    * @returns
    */
   run: async (rainy, message, args) => {
+    const guildData = await guildProfile.findOne({ guildID: message.guild.id });
     if (!message.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
       message.reply("sorry! this command can only be ran by server admins!");
     } else {
@@ -60,7 +63,11 @@ module.exports = {
         .setDescription(
           "the settings that were changed/added/removed can be viewed down below"
         )
-        .addFields({ name: "server type:", value: "🥳Fun & Games🎮" })
+        .addFields(
+          { name: "server type:", value: "🥳Fun & Games🎮" },
+          { name: "server id:", value: guildData.guildID, inline: true},
+          { name: "owner id:", value: guildData.ownerID, inline: true }
+          )
         .setColor("GREEN")
         .setFooter("💖made with love -tyler :)")
         .setTimestamp();
@@ -103,7 +110,7 @@ module.exports = {
           await i.update({
             embeds: [funClickedEmbed],
             components: [finishedRow],
-          });
+          })
         } else if (i.customId === "modBtn") {
           await i.update({
             embeds: [modClickedEmbed],

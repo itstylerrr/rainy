@@ -2,8 +2,10 @@ const Discord = require("discord.js");
 const rainy = require("../rainy");
 const rainyConfig = require("../rainy.json");
 const chalk = require("chalk");
+const guildModel = require('../models/guildSchema')
 
 rainy.on("guildCreate", async (guild) => {
+// [ Sending rainy's embed to explain the bot when joining server. ]
     const newChannel = guild.channels.cache.find(channel => channel.type === 'GUILD_TEXT' && channel.permissionsFor(guild.me).has('SEND_MESSAGES'))
 
     const setupEmbed = new Discord.MessageEmbed()
@@ -22,5 +24,11 @@ rainy.on("guildCreate", async (guild) => {
      .setTimestamp()
      
      newChannel.send({ embeds: [setupEmbed]})
-     console.log('embed sent')
+
+// [ Sending all of the servers basic info to DB ]
+        let guildProfile = await guildModel.create({
+            guildID: guild.id,
+            ownerID: guild.ownerId
+        });
+        guildProfile.save();
   })
