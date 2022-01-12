@@ -111,6 +111,17 @@ module.exports = {
             embeds: [funClickedEmbed],
             components: [finishedRow],
           })
+          guildProfile.findOneAndUpdate(
+            {
+              guildID: message.guild.id,
+            },
+            {
+              botType: 'typeFun'
+            },
+            {
+              upsert: true,
+            }
+          )
         } else if (i.customId === "modBtn") {
           await i.update({
             embeds: [modClickedEmbed],
