@@ -1,3 +1,4 @@
+<a href="# Get Started"><img src="https://i.ibb.co/6J6fjDX/rainy-logo-circle.png" alt="rainy-logo-circle" border="0" align=center></a>
 <h1 align=center >⛈️ rainy - discord bot ⛈️ </h1>
 
 <div align=center >
