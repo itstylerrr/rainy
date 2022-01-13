@@ -1,30 +1,40 @@
 {
   "name": "rainy",
-  "version": "1.5.2",
-  "description": "Comming soon...",
+  "version": "2.0.0",
+  "description": "hey! im rainy, im a discord bot coded by -Tyler#7922 in discordjs v13 created to be user friendly, nice, and simple to use.",
   "main": "rainy.js",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "canvas": "^2.8.0",
+    "chalk": "^4.1.2",
+    "chart.js": "^2.9.4",
+    "chartjs-node-canvas": "^3.2.0",
+    "discord.js": "^13.1.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
+    "mongoose": "^5.12.12",
+    "node-fetch": "^2.6.1",
+    "random-puppy": "^1.1.0",
+    "some-random-cat": "^2.2.1",
+    "twitch-api-v5": "^2.0.4"
+  },
   "scripts": {
-    "start": "pm2 start rainy.js",
-    "dev": "nodemon rainy.js -e -js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/itstylerrr/rainy.git"
   },
-  "keywords": [],
-  "author": "Tyler Witkowski",
-  "license": "ISC",
+  "keywords": [
+    "rainy",
+    "discord",
+    "mongo"
+  ],
+  "author": "KSJaay",
+  "license": "GNU General Public License v3.0",
   "bugs": {
     "url": "https://github.com/itstylerrr/rainy/issues"
   },
-  "homepage": "https://github.com/itstylerrr/rainy#readme",
-  "dependencies": {
-    "canvas": "^2.8.0",
-    "chalk": "^4.1.2",
-    "discord.js": "^13.3.1",
-    "djs-helper-v13": "^1.0.20",
-    "moment": "^2.29.1",
-    "mongoose": "^6.1.6",
-    "simply-djs": "^2.5.2"
-  }
+  "homepage": "https://github.com/itstylerrr/rainy#readme"
 }

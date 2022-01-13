@@ -1,18 +1,67 @@
-const fs = require("fs");
-const Discord = require("discord.js");
-const rainyConfig = require('./rainy.json')
+// Importing modules
+const Discord = require('discord.js'),
+fs = require('fs'),
+mongoose = require('mongoose'),
+util = require('util'),
+config = require('./config.json'),
+readdir = util.promisify(fs.readdir),
+client = new Discord.Client({ intents: ['GUILDS', 'GUILD_MEMBERS', 'GUILD_VOICE_STATES', 'GUILD_MESSAGES', 'DIRECT_MESSAGES']});
 
+// Adding to the client
+client.event = new Discord.Collection();
+client.commands = new Discord.Collection();
+client.config = config;
+client.Database = require('./Database/Mongoose.js');
+client.tools = require('./Tools/Tools.js');
+client.logger = require('./Tools/Logger.js');
+client.embed = require('./Tools/Embed.js');
 
-const rainy = new Discord.Client({
-  intents: ["32767"],
-});
+async function init(){
+    // Load Discordjs Events
+    const eventFiles = fs.readdirSync('./Events/').filter(file => file.endsWith('.js'));
+    for (const file of eventFiles) {
+    const event = require(`./Events/${file}`);
+    const eventName = file.split(".")[0];
+    console.log(`Loading... ${eventName}`)
+    client.on(eventName, event.bind(null, client));
+    }
 
-module.exports = rainy;
-rainy.commands = new Discord.Collection();
-rainy.aliases = new Discord.Collection();
-rainy.slash_commands = new Discord.Collection();
-fs.readdirSync("./handler").forEach((file) => {
-  require(`./handler/${file}`);
-});
+    //Load the commands
+    let folders = await readdir("./Commands/");
+    folders.forEach(direct =>{
+    const commandFiles = fs.readdirSync('./Commands/' + direct + "/").filter(file => file.endsWith('.js'));
+    for (const file of commandFiles) {
+        const command = require(`./Commands/${direct}/${file}`);
+        client.commands.set(command.name, command);
+    }
+    commandFiles.map((file) => {
+        let cmd = require(`./commands/${direct}/${file}`);
+    
+        let name = cmd.name || "No command name.";
+        let aliases = cmd.aliases || [];
+    
+        let option = name == "No command name." ? "❌" : "✅";
+    
+        console.log(`Loaded Command ${option} | ${name}`);
+      });
+    })
 
-rainy.login(rainyConfig.token);
+    // Connect to the database
+    mongoose.connect(config.mongoDB, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }).then(() => {
+        console.log('Connected to MongoDB')
+    }).catch((err) => {
+        console.log('Unable to connect to MongoDB Database.\nError: ' + err)
+    })
+
+    await client.login(config.token)
+}
+
+init();
+
+process.on('unhandledRejection', err =>{
+    console.log('Unknown error occured:\n')
+    console.log(err)
+})
