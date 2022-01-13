@@ -21,7 +21,7 @@ module.exports = {
         await data.user.save()
         const finishedEmbed = new MessageEmbed()
         .setTitle('⛈️raining cash!')
-        .setDescription(`You earned ${randomNumber} by begging!`)
+        .setDescription(`You earned $${randomNumber} by begging!`)
         .setColor('GREEN')
         .setTimestamp()
         message.reply({ embeds: [finishedEmbed] })
