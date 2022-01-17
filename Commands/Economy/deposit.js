@@ -25,7 +25,7 @@ module.exports = {
           "Pfft... Who do you think you are? You dont have that kind of money!"
         );
       data.user.bank = Number(data.user.bank) + Number(amount)
-      data.user.cash -= Number(data.user.cash) - Number(amount)
+      data.user.cash = Number(data.user.cash) - Number(amount)
       await data.user.save()
       const finishedEmbed = new MessageEmbed()
         .setTitle("New deposit!")
