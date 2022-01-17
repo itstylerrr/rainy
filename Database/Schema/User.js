@@ -4,6 +4,6 @@ module.exports = mongoose.model("User", new mongoose.Schema({
     id: { type: String },
     registeredAt: { type: Number, default: Date.now() },
     cash: { type: Number, default: 1000 },
-    bank: { type: Number },
+    bank: { type: Number, default: 0 },
     workcd: { type: Number},
 }));
