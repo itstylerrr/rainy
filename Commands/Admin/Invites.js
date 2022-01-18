@@ -22,7 +22,7 @@ const options = {
 module.exports = {
     name: "invites",
     usage: ["See the dates at which the most amount of users have joined your server```{prefix}invites <days>```"],
-    enabled: true,
+    enabled: false,
     aliases: [],
     category: "Admin",
     memberPermissions: [ "ADMINISTRATOR" ],
