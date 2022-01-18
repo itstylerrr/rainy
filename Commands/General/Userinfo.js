@@ -38,7 +38,8 @@ module.exports = {
                 },
                 fields: [
                     { name: `User`, value: `${member.user} [${member.user.id}]`, inline: false },
-                    { name: `Created At`, value: createDate, inline: false },
+                    // { name: `Created At`, value: createDate, inline: false },
+                    { name: `Created At`, value: "🚧fixing value🚧", inline: false },
                     { name: `Joined At`, value: joinDate, inline: false },
                     { name: `Roles`, value: roleCount, inline: false }
                 ]
