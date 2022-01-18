@@ -25,7 +25,7 @@ module.exports = {
                     fields: [
                         {
                             name: 'Developers',
-                            value: '```KSJaay#2487```',
+                            value: '```-Tyler#7922```',
                         },
                         {
                             name: 'Channels',
@@ -34,7 +34,7 @@ module.exports = {
                         },
                         {
                             name: 'Users',
-                            value: `\`\`\`${client.users.cache.size}\`\`\``,
+                            value: `\`\`\`${client.guilds.cache.reduce((x, guild) => x + guild.memberCount, 0)}\`\`\``,
                             inline: true,
                         },
                         {
