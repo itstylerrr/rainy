@@ -8,7 +8,7 @@ api.clientID = "";
 module.exports = {
     name: "twitch",
     usage: ["Checks the Twitch Profile also ```{prefix}ttv <twitch userr>```"],
-    enabled: true,
+    enabled: false,
     aliases: ["ttv"],
     category: "General",
     memberPermissions: [],

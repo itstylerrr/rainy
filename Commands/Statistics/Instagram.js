@@ -3,7 +3,7 @@ const fetch = require("node-fetch");
 module.exports = {
     name: "instagram",
     usage: ["Get the most popular post from an instagram account```{prefix}instagram <user>```"],
-    enabled: true,
+    enabled: false,
     aliases: ["insta"],
     category: "Stats",
     memberPermissions: [],
@@ -16,7 +16,7 @@ module.exports = {
     // Execute contains content for the command
     async execute(client, message, args, data){
         try{
-            let user = !args[0] ? "KSJaay" : args[0];
+            let user = !args[0] ? "tyler_wit" : args[0];
             let instagram = await fetchInstagram(user);
 
             if(!instagram){
