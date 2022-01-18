@@ -24,7 +24,7 @@
     
 ## 👋 Get Started:
     
-Getting started with rainy is simple, just invite the bot to your server, and it will automatically send a message.
+invite me
 
 ## ✔ To Do:
 
