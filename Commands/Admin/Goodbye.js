@@ -1,6 +1,6 @@
 module.exports = {
     name: "goodbye",
-    usage: ["When user leaves server send message to channel.", "Set channel for the goodbye message```{prefix}goodbye set #channel```", "Set up a custom goodbye message```{prefix}goodbye custom <text>```", "Disable the goodbye message```{prefix}goodbye disable```","Disable the goodbye message```{prefix}goodbye disable```", "Test the goodbye message```{prefix}goodbye test```", "Available variables: ```{user.ping} - @KSJaay#2487\n{user.name} - KSJaay\n{user.id} - 249955383001481216\n{user.tag} - KSJaay#2487\n{guild.name} - rainy\n{guild.id} - 597797831478214696\n{guild.totalUser} - 123```"],
+    usage: ["When user leaves server send message to channel.", "Set channel for the goodbye message```{prefix}goodbye set #channel```", "Set up a custom goodbye message```{prefix}goodbye custom <text>```", "Disable the goodbye message```{prefix}goodbye disable```","Disable the goodbye message```{prefix}goodbye disable```", "Test the goodbye message```{prefix}goodbye test```", "Available variables: ```{user.ping} - @-Tyler#7922\n{user.name} - KSJaay\n{user.id} - 249955383001481216\n{user.tag} - -Tyler#7922\n{guild.name} - rainy\n{guild.id} - 597797831478214696\n{guild.totalUser} - 123```"],
     enabled: true,
     aliases: ["leave"],
     category: "Admin",
