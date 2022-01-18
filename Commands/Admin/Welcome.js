@@ -1,6 +1,6 @@
 module.exports = {
     name: "welcome",
-    usage: ["When a user joins the server, send message to channel.", "Set channel for the welcome message```{prefix}welcome set #channel```", "Set up a custom welcome message```{prefix}welcome custom <text>```", "Disable the welcome message```{prefix}welcome disable```","Disable the welcome message```{prefix}welcome disable```", "Test the welcome message```{prefix}welcome test```", "Available variables: ```{user.ping} - @KSJaay#2487\n{user.name} - KSJaay\n{user.id} - 249955383001481216\n{user.tag} - KSJaay#2487\n{guild.name} - AlitaBot\n{guild.id} - 597797831478214696\n{guild.totalUser} - 123```"],
+    usage: ["When a user joins the server, send message to channel.", "Set channel for the welcome message```{prefix}welcome set #channel```", "Set up a custom welcome message```{prefix}welcome custom <text>```", "Disable the welcome message```{prefix}welcome disable```","Disable the welcome message```{prefix}welcome disable```", "Test the welcome message```{prefix}welcome test```", "Available variables: ```{user.ping} - @-Tyler#7922#2487\n{user.name} - -Tyler#7922\n{user.id} - 249955383001481216\n{user.tag} - -Tyler#7922#2487\n{guild.name} - rainy\n{guild.id} - 597797831478214696\n{guild.totalUser} - 123```"],
     enabled: true,
     aliases: ["join"],
     category: "Admin",
