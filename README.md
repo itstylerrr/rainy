@@ -35,9 +35,9 @@ Add database models ✅ \
 Add server settings command ✅ \
 Add global rainy economy ✅ \
 Get 50 + commands; current: 21 working ❌ \
-Add music player ❌
-Add moderation commands using database 🚧
-Create website ❌
+Add music player ❌ \
+Add moderation commands using database 🚧 \
+Create website ❌ \
 Add dashboard ❌❌❌❌❌❌❌❌❌❌❌❌❌❌
 
     
