@@ -3,7 +3,7 @@ const moment = require('moment');
 module.exports = {
     name: "serverinfo",
     usage: ["Get information about the current server```{prefix}serverinfo```"],
-    enabled: true,
+    enabled: false,
     aliases: [],
     category: "General",
     memberPermissions: [],
