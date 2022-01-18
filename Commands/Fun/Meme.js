@@ -1,10 +1,6 @@
-const somethingRandom = require('some-random-cat').Random,
-subreddits = [
-    "meme",
-    "memes",
-    "dankmemes",
-    // You can add as many as you wish...
-]
+const { MessageEmbed } = require('discord.js');
+const fetch = require('node-fetch');
+
 module.exports = {
     name: "meme",
     usage: ["Get meme from a random subreddit```{prefix}meme```"],
@@ -20,37 +16,15 @@ module.exports = {
 
     // Execute contains content for the command
     async execute(client, message, args, data){
-        try{
-
-            let randomSubReddit = subreddits[Math.floor(Math.random() * subreddits.length)] // Generates a random subreddit from the array...
-            somethingRandom.getMeme(randomSubReddit).then(res => {
-                return client.embed.send(message, {
-                    title: res.title,
-                    url: `https://www.reddit.com/r/${randomSubReddit}`,
-                    image: {
-                        url: res.img,
-                    },
-                    color: 'RANDOM',
-                    author: {
-                        name: `From ${res.author}`,
-                        icon_url: '',
-                        url: '',
-                    }
-                })
-            }).catch(err => console.log(err));
-
-        }catch(err){
-            client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
-            console.log(err)
-            return client.embed.send(message, {
-                description: `An issue has occured while running the command. If this error keeps occuring please contact our development team.`,
-                color: `RED`,
-                author: {
-                    name: `Uh Oh!`,
-                    icon_url: `${message.author.displayAvatarURL()}`,
-                    url: "",
-                }
-            });
-        }
+        let res = await fetch('https://meme-api.herokuapp.com/gimme');
+        res = await res.json();
+        const embed = new MessageEmbed()
+            .setAuthor(`Subreddit: ${res.title}`)
+            .setTitle(`🤣 Meme 🤣`)
+            .setImage(res.url)
+            .setFooter(message.member.displayName, message.author.displayAvatarURL({ dynamic: true }))
+            .setTimestamp()
+            .setColor(message.guild.me.displayHexColor);
+        message.channel.send({ embeds: [embed] });
     }
 }
