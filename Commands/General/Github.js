@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 module.exports = {
     name: "github",
     usage: ["Get basic information about a github repo```{prefix}github <username> <repo name>```"],
-    enabled: true,
+    enabled: false,
     aliases: [],
     category: "General",
     memberPermissions: [],
