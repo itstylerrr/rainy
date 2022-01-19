@@ -43,7 +43,13 @@ module.exports = {
         return;
     }
 
-    const user = await users.find({ id: `${targetUser.id}` });
+    const userCheck = await users.findOne({ id: `${targetUser.id}` });
+
+    if(!userCheck) {
+        
+    }
+
+    const user = await users.findOne({ id: `${targetUser.id}` });
 
     if (user[0].cash <= 0 ) {
         const poorEmbed = new MessageEmbed()
