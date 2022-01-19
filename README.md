@@ -24,15 +24,21 @@
     
 ## 👋 Get Started:
     
-Getting started with rainy is simple, just invite the bot to your server, and it will automatically send a message.
+invite me
 
 ## ✔ To Do:
 
 Get rainy running ✅ \
 Create basic commands ✅ \
-Create setup command and buttons ✅ \
-Add database support to buttons 🚧 \
 Add database support to bot ✅ \
-Add database models ❌ \
-Add server settings command ❌ \
+Add database models ✅ \
+Add server settings command ✅ \
+Add global rainy economy ✅ \
+Get 50 + commands; current: 21 working ❌ \
+Add music player ❌ \
+Add moderation commands using database 🚧 \
+Create website ❌ \
+Add dashboard ❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+
+    
 ... More to come.
