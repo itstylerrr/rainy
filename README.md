@@ -28,17 +28,19 @@ invite me
 
 ## ✔ To Do:
 
-Get rainy running ✅ \
-Create basic commands ✅ \
-Add database support to bot ✅ \
-Add database models ✅ \
-Add server settings command ✅ \
-Add global rainy economy ✅ \
-Get 50 + commands; current: 21 working ❌ \
-Add music player ❌ \
-Add moderation commands using database 🚧 \
-Create website ❌ \
-Add dashboard ❌❌❌❌❌❌❌❌❌❌❌❌❌❌
+[x] Get rainy running \
+[x] Create basic commands \
+[x] Add database support to bot \
+[x] Add database models \
+[x] Add server settings command \
+[x] Add global rainy economy \
+[x] Welcome & Goodbye system
+[ ] Finish economy.
+[ ] Get 50 + commands; current: 21 working \
+[ ] Add music player \
+[ ] Add moderation commands using database \
+[ ] Create website \
+[ ] Add dashboard
 
     
 ... More to come.
