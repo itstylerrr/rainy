@@ -1,6 +1,6 @@
 {
   "name": "rainy",
-  "version": "2.0.0",
+  "version": "0.5.5",
   "description": "hey! im rainy, im a discord bot coded by -Tyler#7922 in discordjs v13 created to be user friendly, nice, and simple to use.",
   "main": "rainy.js",
   "dependencies": {
