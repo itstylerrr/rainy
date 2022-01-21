@@ -36,7 +36,7 @@ invite me
  - [x] Add global rainy economy \
  - [x] Welcome & Goodbye system
  - [x] Finish economy. \
- - [ ] Get 50 + commands; current: 21 working \
+ - [ ] Get 50 + commands; current: 28 \
  - [ ] Add music player \
  - [ ] Add moderation commands using database \
  - [ ] Create website \
