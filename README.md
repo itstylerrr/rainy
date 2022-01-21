@@ -35,7 +35,7 @@ invite me
  - [x] Add server settings command \
  - [x] Add global rainy economy \
  - [x] Welcome & Goodbye system
- - [ ] Finish economy. \
+ - [x] Finish economy. \
  - [ ] Get 50 + commands; current: 21 working \
  - [ ] Add music player \
  - [ ] Add moderation commands using database \
