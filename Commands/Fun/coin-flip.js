@@ -5,23 +5,25 @@ module.exports = {
     name: "coin-flip",
     usage: ["Flip a coin.```{prefix}coin-flip ```"],
     enabled: true,
-    aliases: ["coinflip", "cf", "flip", "50/50"],
+    aliases: ["cf", "flip", "50/50"],
     category: "Fun",
     memberPermissions: [],
     botPermissions: [ "SEND_MESSAGES", "EMBED_LINKS" ],
     //Settings for command
     nsfw: false,
     ownerOnly: false,
-    cooldown: 5000,
+    cooldown: 1000,
 
     // Execute contains content for the command
     async execute(client, message, args, data){
         try{
             const n = Math.floor(Math.random() * 2);
             if (n === 1) {
-                message.reply("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/2006_Quarter_Proof.png/780px-2006_Quarter_Proof.png", "**Heads**");
+                message.reply("https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/2006_Quarter_Proof.png/780px-2006_Quarter_Proof.png")
+                message.channel.send('**HEADS**')
             } else {
-                message.reply("https://www.nicepng.com/png/full/146-1464848_quarter-tail-png-tails-on-a-coin.png", "**Tails**");
+                message.reply("https://www.nicepng.com/png/full/146-1464848_quarter-tail-png-tails-on-a-coin.png")
+                message.channel.send('**TAILS**')
             }
         }catch(err){
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
