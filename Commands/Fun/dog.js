@@ -1,11 +1,12 @@
-const randomPuppy = require('random-puppy');
+const { MessageEmbed } = require('discord.js');
+const fetch = require('node-fetch')
 
 module.exports = {
     name: "dog",
-    usage: [""],
+    usage: ["Get a cute picture of a dog!```{prefix}dog ```"],
     enabled: true,
-    aliases: [],
-    category: "Images",
+    aliases: ["dogs"],
+    category: "Fun",
     memberPermissions: [],
     botPermissions: [ "SEND_MESSAGES", "EMBED_LINKS" ],
     //Settings for command
@@ -16,15 +17,15 @@ module.exports = {
     // Execute contains content for the command
     async execute(client, message, args, data){
         try{
-            let url = await randomPuppy('dogpictures');
-            return client.embed.send(message, {
-                title: 'Doggo :heart_eyes:',
-                image: {
-                    url: url
-                }
-            })
-
-
+            const res = await fetch('https://dog.ceo/api/breeds/image/random');
+            const img = (await res.json()).message;
+            const dogEmbed = new MessageEmbed()
+            .setTitle('🐶  Woof!  🐶')
+            .setImage(img)
+            .setFooter(message.member.displayName,  message.author.displayAvatarURL({ dynamic: true }))
+            .setTimestamp()
+            .setColor(message.guild.me.displayHexColor)
+            message.reply({ embeds: [dogEmbed] })
         }catch(err){
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
             console.log(err)
