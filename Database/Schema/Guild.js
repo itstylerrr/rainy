@@ -21,6 +21,9 @@ module.exports = mongoose.model("Guild", new mongoose.Schema({
             message: null, // Custom message
             image: false, // Check if image is enabled
             embed: false // Check if embed is enabled
+        },
+        settings: {
+            cbChId: null
         }
     }}
 
