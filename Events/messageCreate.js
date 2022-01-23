@@ -1,7 +1,7 @@
 const config = require("../config.json"),
 cmdCooldown = {};
 
-module.exports = async(client, message) => {
+module.exports = async(client, message, data) => {
 try {
     if(message.author.bot) return; // Return if author is bot
     if(!message.guild) return; // Return if dms or group chat
@@ -96,6 +96,7 @@ try {
     //Create a new log for the command
     
     // client.Database.createLog(message, data);
+
 
     } catch(err) {
         console.error(err);
