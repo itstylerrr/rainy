@@ -1,5 +1,5 @@
 const chalk = require('chalk')
-const { discordjsVersion } = require('discord.js')
+const { version } = require('discord.js')
 
 module.exports = async (client) => {
   const statusArray = [
@@ -43,7 +43,7 @@ module.exports = async (client) => {
   console.log(chalk.red.bold("——————————[Statistics]——————————"));
   console.log(
     chalk.gray(
-      `Discord.js Version: ${discordjsVersion}\nRunning on Node ${process.version} on ${process.platform} ${process.arch}`
+      `Discord.js Version: ${version}\nRunning on Node ${process.version} on ${process.platform} ${process.arch}`
     )
   );
   console.log(

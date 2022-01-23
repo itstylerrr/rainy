@@ -46,6 +46,9 @@ async function init(){
       });
     })
 
+    const countCmdFiles = fs.readdirSync('./Commands/')
+    console.log(`Loaded ${countCmdFiles.length} commands.`)
+
     // Connect to the database
     mongoose.connect(config.mongoDB, {
         useNewUrlParser: true,
