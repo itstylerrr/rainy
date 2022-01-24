@@ -37,7 +37,7 @@ invite me
  - [x] Welcome & Goodbye system
  - [x] Finish economy. \
  - [x] Add a chatbot \
- - [ ] Get 50 + commands; current: 28 \
+ - [ ] Get 50 + commands; current: 34 \
  - [ ] Add music player \
  - [ ] Add moderation commands using database \
  - [ ] Create website \
