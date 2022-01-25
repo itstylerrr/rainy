@@ -51,5 +51,6 @@ invite me
 
 **-Tyler#7922** - Developer. \
 **Rahuletto#0243** - Simply DJS & XP (if added) package - ```npm i simply-djs``` & ```npm i simply-xp``` \
+**NekoBot.xyz** - NekoBot API - Image manipulation commands \
 **Worn Off Keys, Discord.JS, and The Coding Den Servers** - Helping me when I get stuck (which is alot) \
 **Any others...** - If you believe I used any of your exact code and you want credit please add me on Discord or join the support server and explain.
