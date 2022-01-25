@@ -8,7 +8,7 @@ module.exports = {
     usage: ["Generate an image that looks like a ph comment!```{prefix}phcomment <username> <imageurl> <text> ```"],
     enabled: true,
     aliases: ["ph-comment"],
-    category: "Fun",
+    category: "Image Manipulation",
     memberPermissions: [],
     botPermissions: [ "SEND_MESSAGES", "EMBED_LINKS" ],
     //Settings for command
