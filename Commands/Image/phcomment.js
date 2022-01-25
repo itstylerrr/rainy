@@ -1,7 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 const fetch = require('node-fetch')
 const rainyConfig = require('../../config.json')
-const key = rainyConfig.API.catApi
 
 module.exports = {
     name: "phcomment",
