@@ -37,7 +37,8 @@ invite me
  - [x] Welcome & Goodbye system
  - [x] Finish economy. \
  - [x] Add a chatbot \
- - [ ] Get 50 + commands; current: 34 \
+ - [] Add @users instead of URLs to Image Manip commands.
+ - [ ] Get 50 + commands; current: 38 \
  - [ ] Add music player \
  - [ ] Add moderation commands using database \
  - [ ] Create website \
