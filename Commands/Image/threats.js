@@ -19,10 +19,15 @@ module.exports = {
     async execute(client, message, args, data){
         try{
             if (args[0]) {
-                var imageurl = args[0]
+                try{
+                    let member = await client.tools.resolveMember(args[0], message.guild)
+                    var imageurl = member.displayAvatarURL();
+                    }catch (err) {
+                        message.reply(`Please mention a user! \n \n Error: \`${err}\``)
+                        return;
+                    }
             } else {
-                message.reply("You must set a profile picture for the image. To do this, get a image that ends in .png for it to work best; however, this does work with most image files. \n\n Wanna make this fun? Make this your friends profile picture!")
-                message.channel.send('Do you want the PFP to just be blank? Use this link for an image: https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png')
+                message.reply("You must set a picture for the image. To do this, just ping a user!")
                 return;
             }
             const res = await fetch(`https://nekobot.xyz/api/imagegen?type=threats&url=${imageurl}`);
