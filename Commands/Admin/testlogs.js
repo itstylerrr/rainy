@@ -17,7 +17,6 @@ module.exports = {
   async execute(client, message, args, data) {
     try {
         message.reply('Server logs tested... If enabled, check your logging channel that you set for rainy. If disabled, nothing besides this should be sent anywhere when this was ran.')
-      // [ End of CMD ]
       const loggingId = data.guild.addons.settings.loggingId;
       if (loggingId == false) return;
       const loggingCh = client.channels.cache.get(loggingId);

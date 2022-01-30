@@ -23,6 +23,23 @@ module.exports = {
   // Execute contains content for the command
   async execute(client, message, args, data) {
     try {
+        const loggingId = data.guild.addons.settings.loggingId;
+        if (loggingId == false) return;
+        const loggingCh = client.channels.cache.get(loggingId);
+        const currentDate = new Date();
+        const logEmbed = new Discord.MessageEmbed()
+          .setTitle("📜 rainy's logging 📜")
+          .addFields(
+            { name: "Command Name:", value: data.cmd.name },
+            { name: "Command Type:", value: data.cmd.category },
+            { name: "Ran By:", value: `<@${message.author.id}>` },
+            { name: "Ran In:", value: `<#${message.channel.id}>` },
+            { name: "Time Ran:", value: `${currentDate.toLocaleString()} CST` }
+          )
+          .setFooter(`Ran by: ${message.member.displayName}`, message.author.displayAvatarURL({ dynamic: true }))
+          .setTimestamp()
+          .setColor(message.guild.me.displayHexColor);
+        loggingCh.send({ embeds: [logEmbed] });
         if (args[0].toLowerCase() === "remove") {
             data.guild.addons.settings.loggingId = false
             data.guild.markModified('addons.settings');
@@ -122,9 +139,6 @@ module.exports = {
           }
         }
       });
-      // data.guild.addons.settings.loggingId = channel.id
-      // data.guild.markModified('addons.settings');
-      // await data.guild.save();
     } catch (err) {
       client.logger.error(`Ran into an error while executing ${data.cmd.name}`);
       console.log(err);
