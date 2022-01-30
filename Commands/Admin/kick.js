@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 module.exports = {
   name: "kick",
-  usage: ["Kick a user from your server. \n \n ```{prefix}kick <@user>```"],
+  usage: ["Kick a user from your server. \n \n ```{prefix}kick <@user> <reason goes here>```"],
   enabled: true,
   aliases: [],
   category: "Admin",
@@ -16,7 +16,6 @@ module.exports = {
   // Execute contains content for the command
   async execute(client, message, args, data) {
     try {
-        message.reply('Server logs tested... If enabled, check your logging channel that you set for rainy. If disabled, nothing besides this should be sent anywhere when this was ran.')
       const loggingId = data.guild.addons.settings.loggingId;
       if (loggingId == false) return;
       const loggingCh = client.channels.cache.get(loggingId);
@@ -34,6 +33,44 @@ module.exports = {
         .setTimestamp()
         .setColor(message.guild.me.displayHexColor);
       loggingCh.send({ embeds: [logEmbed] });
+
+      // [ End Of Logging ]
+
+      if (args[0]) {
+        var targetUser = await message.mentions.members.first();
+    } else {
+        message.reply("You must mention a member to kick.")
+        return;
+    }
+    if (targetUser === message.author) {
+        message.reply("You cant kick yourself, even though I would like to kick you...")
+        return;
+    }
+    if (!targetUser.kickable) {
+        message.reply("You cannot kick this fella.")
+    }
+    if (args[1]) {
+        var reason = message.content.slice(message.content.indexOf(args[1]), message.content.length) || "No reason provided."
+    }
+    try {
+        targetUser.kick(reason)
+        const kickedEmbed = new Discord.MessageEmbed()
+        .setAuthor(`🛠️ Kicked User 🛠️`, message.guild.iconURL())
+        .setColor("GREEN")
+        .setThumbnail(targetUser.displayAvatarURL({ dynamic: true }))
+        .setFooter(message.guild.name, message.guild.iconURL())
+        .addField("**Moderation**", "kick")
+        .addField("**User Kicked**", `<@${targetUser.id}>`)
+        .addField("**Kicked By**", message.author.username)
+        .addField("**Reason**", `${reason || "**No Reason**"}`)
+        .addField("**Date**", message.createdAt.toLocaleString())
+        .setTimestamp()
+        message.reply({ embeds: [kickedEmbed] })
+        loggingCh.send({ embeds: [kickedEmbed] });
+    } catch (err) {
+        console.log(err)
+        message.reply(err)
+    }
     } catch (err) {
       client.logger.error(`Ran into an error while executing ${data.cmd.name}`);
       console.log(err);
