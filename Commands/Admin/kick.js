@@ -1,10 +1,8 @@
 const Discord = require("discord.js");
 
 module.exports = {
-  name: "chatbot",
-  usage: [
-    "Set the channel that the chatbot will work in. ```{prefix}chatbot #<channel>``` To disable: ```{prefix}chatbot remove```",
-  ],
+  name: "kick",
+  usage: ["Kick a user from your server. \n \n ```{prefix}kick <@user>```"],
   enabled: true,
   aliases: [],
   category: "Admin",
@@ -17,8 +15,8 @@ module.exports = {
 
   // Execute contains content for the command
   async execute(client, message, args, data) {
-    const channelId = await client.tools.resolveChannel(args[0], message.guild);
     try {
+        message.reply('Server logs tested... If enabled, check your logging channel that you set for rainy. If disabled, nothing besides this should be sent anywhere when this was ran.')
       const loggingId = data.guild.addons.settings.loggingId;
       if (loggingId == false) return;
       const loggingCh = client.channels.cache.get(loggingId);
@@ -32,41 +30,10 @@ module.exports = {
           { name: "Ran In:", value: `<#${message.channel.id}>` },
           { name: "Time Ran:", value: `${currentDate.toLocaleString()} CST` }
         )
-        .setFooter(
-          `Ran by: ${message.member.displayName}`,
-          message.author.displayAvatarURL({ dynamic: true })
-        )
+        .setFooter(`Ran by: ${message.member.displayName}`, message.author.displayAvatarURL({ dynamic: true }))
         .setTimestamp()
         .setColor(message.guild.me.displayHexColor);
       loggingCh.send({ embeds: [logEmbed] });
-      if (!args[0]) {
-        message.reply(
-          "You must set a channel for the bot to interact in. To disable, make the first argument `remove`, ```{prefix}chatbot remove```"
-        );
-      }
-
-      if (!data.guild.addons.settings) {
-        data.guild.addons.settings = { cbChId: false };
-        data.guild.markModified("addons.settings");
-        await data.guild.save();
-      }
-
-      if (args[0].toLowerCase() === "remove") {
-        data.guild.addons.settings.cbChId = false;
-        data.guild.markModified("addons.settings");
-        await data.guild.save();
-        message.reply("Removed chatbot.");
-        return;
-      }
-
-      if (channelId.id) {
-        data.guild.addons.settings.cbChId = channelId.id;
-        data.guild.markModified("addons.settings");
-        await data.guild.save();
-        message.reply(
-          `I have set the chatbot to interact with the channel #<${channelId.id}>`
-        );
-      }
     } catch (err) {
       client.logger.error(`Ran into an error while executing ${data.cmd.name}`);
       console.log(err);

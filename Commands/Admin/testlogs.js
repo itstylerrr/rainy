@@ -3,7 +3,7 @@ const Discord = require("discord.js");
 module.exports = {
   name: "testlogs",
   usage: ["Test logging for your server."],
-  enabled: false,
+  enabled: true,
   aliases: [],
   category: "Admin",
   memberPermissions: ["ADMINISTRATOR"],
