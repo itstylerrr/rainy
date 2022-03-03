@@ -24,7 +24,7 @@
   },
   "scripts": {
     "test": "nodemon -e js",
-    "start": "node index.js"
+    "start": "node rainy.js"
   },
   "repository": {
     "type": "git",
