@@ -43,7 +43,7 @@ module.exports = {
             .setDescription(`❌ You have already worked recently\n\nTry again in ${time.minutes}m ${time.seconds}s `);
             message.reply({ embeds: [timeEmbed] })
         } else {
-            let amount = Math.floor(Math.random() * 125) + 1;
+            let amount = Math.floor(Math.random() * 1000) + 1;
             let embed1 = new MessageEmbed()
                 .setColor("GREEN")
                 .setTitle('💰 You got the bag! 💰')
