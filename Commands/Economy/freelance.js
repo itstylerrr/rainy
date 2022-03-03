@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js')
-const Jwork = require('../../Extra/Files/jobs.json')
+const Jwork = require('../../Extra/Files/freelance.json')
 const JworkR = Jwork[Math.floor(Math.random() * Jwork.length)];
 const ms = (milliseconds) => {
     if (typeof milliseconds !== 'number') {
@@ -18,8 +18,8 @@ const ms = (milliseconds) => {
 }
 
 module.exports = {
-    name: "work",
-    usage: ["Work a job! \n \n <PREFIX>work"],
+    name: "freelance",
+    usage: ["Look for a freelance job! \n \n <PREFIX>freelance"],
     enabled: true,
     aliases: [],
     category: "Economy",
@@ -40,7 +40,7 @@ module.exports = {
 
             let timeEmbed = new MessageEmbed()
             .setColor("GREEN")
-            .setDescription(`❌ You have already worked recently\n\nTry again in ${time.minutes}m ${time.seconds}s `);
+            .setDescription(`❌ You have been hired recently\n\nTry again in ${time.minutes}m ${time.seconds}s `);
             message.reply({ embeds: [timeEmbed] })
         } else {
             let amount = Math.floor(Math.random() * 1000) + 1;
