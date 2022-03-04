@@ -39,18 +39,21 @@
   "jobs": {
     "programmer": {
       "name": "Programmer",
+      "num": 1,
       "totalCost": "57000",
       "income": "13500",
       "description": "Become a programmer and earn the highest gross income in the city of Rainy!"
     },
     "shopOwner": {
       "name": "Shop Owner",
+      "num": 2,
       "totalCost": "60000",
       "income": "10000",
       "description": "Own your own small business. Best thing is, you take all the profits!"
     },
     "fisherman": {
       "name": "Fisherman",
+      "num": 2,
       "totalCost": "15000",
       "income": "2850",
       "description": "Go on your own adventures in your small fishing boat, catch the fish then sell them!"
