@@ -5,7 +5,7 @@ module.exports = {
     name: "job",
     usage: ["Get hired by a company! ```<PREFIX>job <param>```"],
     enabled: true,
-    aliases: [],
+    aliases: ["jobs"],
     category: "Economy",
     memberPermissions: [],
     botPermissions: [ "SEND_MESSAGES", "EMBED_LINKS" ],
