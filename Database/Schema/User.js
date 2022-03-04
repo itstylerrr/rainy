@@ -16,7 +16,8 @@ module.exports = mongoose.model("User", new mongoose.Schema({
         fishingRod: false,
         ideLicense: false,
         server: false,
-        
+        boat: false,
+        store: false
 
     } }
 }));
