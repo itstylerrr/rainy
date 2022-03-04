@@ -5,6 +5,16 @@
       "price": "10000",
       "description": "Required for **Shop Owner**"
     },
+    "store": {
+      "name": "Unowned Shop",
+      "price": "50000",
+      "description": "Required for **Shop Owner**"
+    },
+    "boat": {
+      "name": "Lund 1650 Angler SS (Boat)",
+      "price": "10000",
+      "description": "Required for **Fisherman**"
+    },
     "computer": {
       "name": "Computer",
       "price": "2000",
@@ -24,6 +34,26 @@
       "name": "Server",
       "price": "25000",
       "description": "Required for **Programmer**"
+    }
+  },
+  "jobs": {
+    "programmer": {
+      "name": "Programmer",
+      "totalCost": "57000",
+      "income": "13500",
+      "description": "Become a programmer and earn the highest gross income in the city of Rainy!"
+    },
+    "shopOwner": {
+      "name": "Shop Owner",
+      "totalCost": "60000",
+      "income": "10000",
+      "description": "Own your own small business. Best thing is, you take all the profits!"
+    },
+    "fisherman": {
+      "name": "Fisherman",
+      "totalCost": "15000",
+      "income": "2850",
+      "description": "Go on your own adventures in your small fishing boat, catch the fish then sell them!"
     }
   }
 }

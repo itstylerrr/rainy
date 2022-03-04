@@ -1,4 +1,5 @@
-const { MessageEmbed } = require('discord.js')
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js')
+const jobsJson = require('../../Extra/Files/jobs.json')
 
 module.exports = {
     name: "job",
@@ -41,46 +42,55 @@ module.exports = {
           );
     
           const descEmbed = new MessageEmbed()
-            .setTitle("")
+            .setTitle("🏪 Job Listings 🧑‍💻")
             .setDescription(
-              "hey! please use the following buttons that have bot topics on then, then choose which one you want the bot to be, then i will auto generate settings for your server! *dont worry! you can always edit settings by running: `'settings`"
+              "Seems as if I have found some positions that are hiring right now! View the requirements down below, and then press choose where you want to apply!"
             )
             .setColor("#36393F")
             .setFooter("💖made with love -tyler :)")
             .setTimestamp();
     
-          const funClickedEmbed = new MessageEmbed()
-            .setTitle("⛈️rainy setup⛈️")
+          const programmerEmbed = new MessageEmbed()
+            .setTitle("🧑‍💻 Programmer 🧑‍💻")
             .setDescription(
-              "the settings that were changed/added/removed can be viewed down below"
+              `You have been hired as a **programmer** here is what changed, along with some information about your new job!`
             )
             .addFields(
-              { name: "server type:", value: "🥳Fun & Games🎮" },
-              { name: "server id:", value: guildData.guildID, inline: true },
-              { name: "owner id:", value: guildData.ownerID, inline: true },
-              { name: "bot type:", value: "typeFun" },
-              { name: "economy:", value: "enabled" }
+              { name: "Cash:", value: `**$** ${Number(data.user.cash) - Number(jobsJson.jobs.programmer.totalCost)}` },
+              { name: "Occupation:", value: jobsJson.jobs.programmer.name, inline: true },
+              { name: "Income:", value: `**$** ${jobsJson.jobs.programmer.income}`, inline: true },
+              { name: "Description:", value: jobsJson.jobs.programmer.description }
             )
             .setColor("GREEN")
             .setFooter("💖made with love -tyler :)")
             .setTimestamp();
     
-          const modClickedEmbed = new MessageEmbed()
-            .setTitle("⛈️rainy setup⛈️")
+          const shopownerEmbed = new MessageEmbed()
+            .setTitle("🏪 Shop Owner 🛍️")
             .setDescription(
-              "the settings that were changed/added/removed can be viewed down below"
+              `You have **created your own store** here is what changed, along with some information about your new job!`
             )
-            .addFields({ name: "server type:", value: "🚔Moderation🛠️" })
+            .addFields(
+              { name: "Cash:", value: `**$** ${Number(data.user.cash) - Number(jobsJson.jobs.shopOwner.totalCost)}` },
+              { name: "Occupation:", value: jobsJson.jobs.shopOwner.name, inline: true },
+              { name: "Income:", value: `**$** ${jobsJson.jobs.shopOwner.income}`, inline: true },
+              { name: "Description:", value: jobsJson.jobs.shopOwner.description }
+            )
             .setColor("GREEN")
             .setFooter("💖made with love -tyler :)")
             .setTimestamp();
     
-          const gaClickedEmbed = new MessageEmbed()
-            .setTitle("⛈️rainy setup⛈️")
+          const fishermanEmbed = new MessageEmbed()
+            .setTitle("🎣 Fisherman 🐟")
             .setDescription(
-              "the settings that were changed/added/removed can be viewed down below"
+              `You **decided to start commercially fishing** here is what changed, along with some information about your new job!`
             )
-            .addFields({ name: "server type:", value: "🎉Giveaway🎟️" })
+            .addFields(
+              { name: "Cash:", value: `**$** ${Number(data.user.cash) - Number(jobsJson.jobs.fisherman.totalCost)}` },
+              { name: "Occupation:", value: jobsJson.jobs.fisherman.name, inline: true },
+              { name: "Income:", value: `**$** ${jobsJson.jobs.fisherman.income}`, inline: true },
+              { name: "Description:", value: jobsJson.jobs.fisherman.description }
+            )
             .setColor("GREEN")
             .setFooter("💖made with love -tyler :)")
             .setTimestamp();
@@ -90,27 +100,27 @@ module.exports = {
             components: [btnRow],
           });
     
-          const filter = (i) => ["funBtn", "modBtn", "gaBtn"].includes(i.customId);
+          const filter = (i) => ["programmerJob", "shopOwnerJob", "fishermanJob"].includes(i.customId);
           const collector = message.channel.createMessageComponentCollector({
             filter,
             max: 1,
             time: 1000 * 15,
           });
           collector.on("collect", async (i) => {
-            if (i.customId === "funBtn") {
+            if (i.customId === "programmerJob") {
               await i.update({
-                embeds: [funClickedEmbed],
+                embeds: [programmerEmbed],
                 components: [finishedRow],
               });
-            } else if (i.customId === "modBtn") {
+            } else if (i.customId === "shopOwnerJob") {
               await i.update({
-                embeds: [modClickedEmbed],
+                embeds: [shopownerEmbed],
                 components: [finishedRow],
               });
             } else {
-              if (i.customId === "gaBtn") {
+              if (i.customId === "fishermanJob") {
                 await i.update({
-                  embeds: [gaClickedEmbed],
+                  embeds: [fishermanEmbed],
                   components: [finishedRow],
                 });
               }
