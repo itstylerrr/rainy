@@ -4,6 +4,7 @@
   "description": "hey! im rainy, im a discord bot coded by -Tyler#7922 in discordjs v13 created to be user friendly, nice, and simple to use.",
   "main": "rainy.js",
   "dependencies": {
+    "ascii-table": "^0.0.9",
     "axios": "^0.21.1",
     "canvas": "^2.8.0",
     "chalk": "^4.1.2",
