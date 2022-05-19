@@ -37,7 +37,7 @@ module.exports = async (client) => {
   console.log(chalk.white(`Prefix:` + chalk.red(`'`)));
   console.log(
     chalk.white(`Support-Server: `) +
-      chalk.red(`Simplicity : https://discord.gg/gjVjvwXBfQ`)
+      chalk.red(`Greezy Development : https://discord.gg/a7V6C4dAQj`)
   );
   console.log("");
   console.log(chalk.red.bold("——————————[Statistics]——————————"));

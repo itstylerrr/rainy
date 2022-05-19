@@ -17,8 +17,6 @@ module.exports = {
   // Execute contains content for the command
   async execute(client, message, args, data) {
     const targetUser = await message.mentions.members.first();
-    const userId = { id: message.author.id };
-    const targetId = { id: targetUser.id };
 
     if (!targetUser || !args[0]) {
       const targetEmbed = new MessageEmbed()
@@ -27,6 +25,9 @@ module.exports = {
       message.reply({ embeds: [targetEmbed] });
       return;
     }
+
+    const userId = { id: message.author.id };
+    const targetId = { id: targetUser.id };
 
     if (targetUser.id === message.author.id) {
       const roburselfEmbed = new MessageEmbed()

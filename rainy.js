@@ -2,6 +2,11 @@
 const Discord = require("discord.js");
 const guilds = require("./Database/Schema/Guild");
 const simplydjs = require("simply-djs");
+const ascii = require("ascii-table");
+const chalk = require("chalk");
+const LegacyCmdsTable = new ascii("🔃 Legacy Commands 🔃");
+const SlashCmdsTable = new ascii("🔃 Slash Commands 🔃");
+const EventsTable = new ascii("🔃 Events 🔃");
 (fs = require("fs")),
   (mongoose = require("mongoose")),
   (util = require("util")),
@@ -34,7 +39,7 @@ async function init() {
   for (const file of eventFiles) {
     const event = require(`./Events/${file}`);
     const eventName = file.split(".")[0];
-    console.log(`Loading... ${eventName}`);
+    EventsTable.addRow(eventName, "🔹 SUCCESSFUL")
     client.on(eventName, event.bind(null, client));
   }
 
@@ -54,14 +59,14 @@ async function init() {
       let name = cmd.name || "No command name.";
       let aliases = cmd.aliases || [];
 
-      let option = name == "No command name." ? "❌" : "✅";
-
-      console.log(`Loaded Command ${option} | ${name}`);
+      let option = name == "No command name." ? "🔻 Unsuccessful" : "🔹 Successful";
+      LegacyCmdsTable.addRow(name, option)
     });
   });
-
   const countCmdFiles = fs.readdirSync("./Commands/");
-
+  console.log(EventsTable.toString());
+  console.log(LegacyCmdsTable.toString());
+  console.log(chalk.cyan("Rainy > ") + `Commands loaded.`);
   // Connect to the database
   mongoose
     .connect(config.mongoDB, {
@@ -69,10 +74,10 @@ async function init() {
       useUnifiedTopology: true,
     })
     .then(() => {
-      console.log("Connected to MongoDB");
+      console.log(chalk.cyan("Rainy > ") + "Connected to MongoDB.")
     })
     .catch((err) => {
-      console.log("Unable to connect to MongoDB Database.\nError: " + err);
+      console.log(chalk.red("Rainy Error > ") + `Error connecting to Mongo: ${err}`)
     });
 
   await client.login(config.token);

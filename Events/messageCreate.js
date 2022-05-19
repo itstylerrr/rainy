@@ -1,4 +1,7 @@
-const config = require("../config.json"),
+const config = require("../config.json");
+const { MessageEmbed, Guild, WebhookClient, Webhook } = require("discord.js");
+const chalk = require("chalk");
+const moment = require("moment")
 cmdCooldown = {};
 
 module.exports = async(client, message, data) => {
@@ -92,8 +95,22 @@ try {
     //Execute the command and log the user in console
     cmd.execute(client, message, args, data);
     client.logger.cmd(`${message.author.tag} used ${cmd.name}`);
+    const cmdLogger = new WebhookClient({
+        url: config.Webhooks.dev
+    })
+    const timestamp = `[${moment().format("DD-MM-YY H:m:s")}]`;
+    const Embed = new MessageEmbed()
+    .setTitle("⛈️ command ran ⛈️")
+    .setColor(config.color)
+    .setDescription(`${timestamp} | *CMD* | ${message.author.tag} used ${cmd.name}`)
+    .addFields(
+        {name: "Guild:", value: `Name: ${message.guild.name} | ID: ${message.guild.id}`},
+        {name: "User:", value: `Name: ${message.author.tag} | ID: ${message.author.id}`},
+    )
 
     //Create a new log for the command
+
+    cmdLogger.send({ embeds: [Embed] });
     
     // client.Database.createLog(message, data);
 
