@@ -28,20 +28,21 @@ invite me
 
 ## ✔ To Do:
 
- - [x] Get rainy running \
- - [x] Create basic commands \
- - [x] Add database support to bot \
- - [x] Add database models \
- - [x] Add server settings command \
- - [x] Add global rainy economy \
+ - [x] Get rainy running
+ - [x] Create basic commands
+ - [x] Add database support to bot
+ - [x] Add database models
+ - [x] Add server settings command
+ - [x] Add global rainy economy
  - [x] Welcome & Goodbye system
- - [x] Finish economy. \
- - [x] Add a chatbot \
+ - [x] Finish economy
+ - [x] Add a chatbot
  - [x] Add @users instead of URLs to Image Manip commands.
- - [ ] Get 50 + commands; current: 44 \
- - [ ] Add music player \
- - [ ] Add moderation commands using database \
- - [ ] Create website \
+ - [ ] Get 50 + commands; current: 44
+ - [ ] Add music player
+ - [ ] Add moderation commands using database
+ - [ ] Create slash commands
+ - [ ] Create website
  - [ ] Add dashboard
 
     
