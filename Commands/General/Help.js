@@ -55,7 +55,6 @@ module.exports = {
                 }
                 cmdArr.push(obj);
             }
-
             return client.embed.send(message, {
                 author: {
                     name: `Help list`,
