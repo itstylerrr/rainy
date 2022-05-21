@@ -88,6 +88,7 @@ module.exports = {
         .setColor("RED");
       message.reply({ embeds: [userEmbed] });
       errorLog.send({ embeds: [devEmbed] });
+      return;
     }
   },
 };
