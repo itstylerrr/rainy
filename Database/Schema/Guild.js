@@ -6,6 +6,7 @@ module.exports = mongoose.model("Guild", new mongoose.Schema({
     id: { type: String }, //ID of the guild
     registeredAt: { type: Number, default: Date.now() },
     prefix: { type: String, default: config.prefix },
+    test: { type: String, default: "blank" },
 
     addons: { type: Object, default: { // Extra features data
         welcome: {
@@ -23,8 +24,8 @@ module.exports = mongoose.model("Guild", new mongoose.Schema({
             embed: false // Check if embed is enabled
         },
         settings: {
-            cbChId: false,
-            loggingId: false
+            cbChId: "none",
+            loggingId: null
         }
     }}
 

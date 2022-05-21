@@ -1,4 +1,7 @@
-const Discord = require("discord.js");
+const { Message, MessageEmbed, WebhookClient } = require("discord.js");
+const { Webhooks, ownerid } = require("../../config.json");
+const keygen = require("keygen");
+const DB = require("../../Database/Schema/Guild");
 
 module.exports = {
   name: "chatbot",
@@ -16,46 +19,34 @@ module.exports = {
   cooldown: 5000,
 
   // Execute contains content for the command
+  /**
+   * @param {Client} client
+   * @param {Message} message 
+   */
   async execute(client, message, args, data) {
     const channelId = await client.tools.resolveChannel(args[0], message.guild);
     try {
-      const loggingId = data.guild.addons.settings.loggingId;
-      if (loggingId == false) return;
-      const loggingCh = client.channels.cache.get(loggingId);
-      const currentDate = new Date();
-      const logEmbed = new Discord.MessageEmbed()
-        .setTitle("📜 rainy's logging 📜")
-        .addFields(
-          { name: "Command Name:", value: data.cmd.name },
-          { name: "Command Type:", value: data.cmd.category },
-          { name: "Ran By:", value: `<@${message.author.id}>` },
-          { name: "Ran In:", value: `<#${message.channel.id}>` },
-          { name: "Time Ran:", value: `${currentDate.toLocaleString()} CST` }
-        )
-        .setFooter(
-          `Ran by: ${message.member.displayName}`,
-          message.author.displayAvatarURL({ dynamic: true })
-        )
-        .setTimestamp()
-        .setColor(message.guild.me.displayHexColor);
-      loggingCh.send({ embeds: [logEmbed] });
+      const guildDB = await DB.findOne({
+        id: message.guild.id,
+      });
       if (!args[0]) {
-        message.reply(
-          "You must set a channel for the bot to interact in. To disable, make the first argument `remove`, ```{prefix}chatbot remove```"
-        );
+        message.reply({ embeds: [new MessageEmbed().setDescription("You must set a channel for the bot to interact in. To disable, make the first argument `remove`, ```{prefix}chatbot remove```").setColor("RED")] });
+        return;
       }
 
       if (!data.guild.addons.settings) {
-        data.guild.addons.settings = { cbChId: false };
-        data.guild.markModified("addons.settings");
-        await data.guild.save();
+         data.guild.addons.settings = { cbChId: "none" };
+        await data.guild.markModified("addons.settings");
+        await guild.data.save();
       }
 
-      if (args[0].toLowerCase() === "remove") {
-        data.guild.addons.settings.cbChId = false;
-        data.guild.markModified("addons.settings");
-        await data.guild.save();
-        message.reply("Removed chatbot.");
+      if (args[0] === "remove") {
+        if (guildDB.addons.settings.cbChId === null) return;
+        const fetchedId = guildDB.addons.settings.cbChId;
+        const oldCbCh = client.channels.cache.get(fetchedId);
+        await oldCbCh.send({ content: `**Chatbot has been disabled by: <@${message.author.id}>.**` })
+        await DB.findOneAndUpdate({ id: message.guild.id }, { "addons.settings.cbChId": null });
+        message.reply({ embeds: [new MessageEmbed().setTitle("✅ Removed chatbot successfully.").setColor("GREEN")] });
         return;
       }
 
@@ -63,25 +54,48 @@ module.exports = {
         data.guild.addons.settings.cbChId = channelId.id;
         data.guild.markModified("addons.settings");
         await data.guild.save();
-        message.reply(
-          `I have set the chatbot to interact with the channel #<${channelId.id}>`
-        );
+        const newCbCh = client.channels.cache.get(channelId.id)
+        message.reply({ embeds: [new MessageEmbed().setDescription(`✅ Set chatbot to interact with the specified channel: <#${channelId.id}>.`).setColor("GREEN")]});
+        newCbCh.send({ content: `**Chatbot has been enabled by: <@${message.author.id}>.**` })
+        return;
       }
     } catch (err) {
-      client.logger.error(`Ran into an error while executing ${data.cmd.name}`);
-      console.log(err);
-      message.reply(
-        "You must mention a channel such as... `#chatbot`. Please avoid general channels."
-      );
-      return client.embed.send(message, {
-        description: `An issue has occured while running the command. If this error keeps occuring please contact our development team.`,
-        color: `RED`,
-        author: {
-          name: `Uh Oh!`,
-          icon_url: `${message.author.displayAvatarURL()}`,
-          url: "",
-        },
+      const currentDate = new Date();
+      const errKey = keygen.url(10);
+      const errorLog = new WebhookClient({
+        url: Webhooks.errors,
       });
+      const devEmbed = new MessageEmbed()
+        .setTitle("⛈️ Rainy | Errors ⛈️")
+        .setDescription(`**Error:**\n\n${err}\n`)
+        .addFields(
+          { name: "Command:", value: "chatbot" },
+          { name: "Error Key:", value: `\`${errKey}\`` },
+          {
+            name: "Guild:",
+            value: `Name: ${message.guild.name} | ID: ${message.guild.id}`,
+            inline: true,
+          },
+          {
+            name: "Author:",
+            value: `Name: ${message.author.tag} | ID: ${message.author.id}`,
+            inline: true,
+          },
+          {
+            name: "Created:",
+            value: `<t:${parseInt(message.createdTimestamp / 1000)}:R>`
+          }
+        )
+        .setColor("RED");
+  
+      const userEmbed = new MessageEmbed()
+        .setTitle("⛈️ Rainy | Errors ⛈️")
+        .setDescription(
+          `An error has occured running this command. Please DM <@${ownerid}> with the following error key: \`${errKey}\``
+        )
+        .setColor("RED");
+      message.reply({ embeds: [userEmbed] });
+      errorLog.send({ embeds: [devEmbed] });
     }
   },
 };
