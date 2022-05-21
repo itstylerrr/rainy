@@ -5,7 +5,7 @@
 
 <div align=center >
   <a href="https://github.com/discordjs">
-    <img src="https://img.shields.io/badge/discord.js-v13.3.1-blue.svg?logo=npm" alt="djsversion.png">
+    <img src="https://img.shields.io/badge/discord.js-v13.7.0-blue.svg?logo=npm" alt="djsversion.png">
   </a>
 
   <a href="https://github.com/itstylerrr/rainy/blob/LICENSE.md">
