@@ -47,7 +47,7 @@ module.exports = {
         .addField("**Date**", message.createdAt.toLocaleString())
         .setTimestamp()
         message.reply({ embeds: [kickedEmbed] })
-        loggingCh.send({ embeds: [kickedEmbed] });
+        // loggingCh.send({ embeds: [kickedEmbed] });
     } catch (err) {
         console.log(err)
         message.reply(err)
