@@ -1,15 +1,15 @@
+const DB = require("../Database/Schema/Guild");
+
 module.exports = async(client, member) => {
     try {
         let guild = member.guild;
         let guildData = await client.Database.fetchGuild(guild.id); // Get guild document from database
+        const guildDb = await DB.findOne({ id: guild.id});
         if(!guildData.addons.welcome.enabled) return; // Welcome messages aren't enabled
-        let dbRole = guildData.addons.welcome.role;
-        console.log(dbRole)
-        let checkedRole = guild.roles.cache.find(r => r === dbRole);
+        let dbRole = guildDb.addons.welcome.role;
+        let checkedRole = guild.roles.cache.find(r => r.id === dbRole);
         if (typeof checkedRole !== undefined) {
-            console.log(checkedRole)
-            // member.roles.add(checkedRole.id);
-            console.log(`Added @${checkedRole} to ${member.tag}.`)
+            member.roles.add(checkedRole.id);
         }
         
         let welcomeChannel = await client.tools.resolveChannel(guildData.addons.welcome.channel, guild); // Try find the welcome channel
