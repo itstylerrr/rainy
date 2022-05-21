@@ -1,4 +1,6 @@
-const Discord = require('discord.js')
+const Discord = require('discord.js');
+const { Client, Message, WebhookClient, MessageEmbed } = require('discord.js');
+const DB = require("../../Database/Schema/Guild");
 
 module.exports = {
   name: "welcome",
@@ -9,7 +11,8 @@ module.exports = {
     "Disable the welcome message```{prefix}welcome disable```",
     "Disable the welcome message```{prefix}welcome disable```",
     "Test the welcome message```{prefix}welcome test```",
-    "Available variables: ```{user.ping} - @-Tyler#7922#2487\n{user.name} - -Tyler#7922\n{user.id} - 249955383001481216\n{user.tag} - -Tyler#7922#2487\n{guild.name} - rainy\n{guild.id} - 597797831478214696\n{guild.totalUser} - 123```",
+    "Give a user a role when they join the server. ```{prefix}welcome role <@role>```",
+    "Available variables: ```{user.ping} - @-Tyler#7922\n{user.name} - -Tyler#7922\n{user.id} - 249955383001481216\n{user.tag} - -Tyler#7922#2487\n{guild.name} - rainy\n{guild.id} - 597797831478214696\n{guild.totalUser} - 123```",
   ],
   enabled: true,
   aliases: ["join"],
@@ -20,6 +23,12 @@ module.exports = {
   nsfw: false,
   ownerOnly: false,
   cooldown: 5000,
+
+  /**
+   * 
+   * @param {Client} client 
+   * @param {Message} message 
+   */
 
   // Execute contains content for the command
   async execute(client, message, args, data) {
@@ -134,6 +143,24 @@ module.exports = {
         });
       }
 
+      if(args[0].toLowerCase() === "role") {
+        if(args[1].toLowerCase() === "remove") {
+          await DB.findOneAndUpdate({ id: message.guild.id }, {"addons.welcome.role": null});
+          return message.reply({ embeds: [new Discord.MessageEmbed().setDescription(`Removed the welcome role.`).setColor(client.config.color)] });
+        }
+        const mentionedRole = message.mentions.roles.first();
+        let checkedRole = message.guild.roles.cache.find(x => x.id === mentionedRole.id);
+        if (typeof checkedRole  === undefined) {
+          return message.reply("you must mention a real role.");
+         return;
+        } else {
+          if(message.guild.roles.cache.has(checkedRole.id)) {
+            await DB.findOneAndUpdate({ id: message.guild.id }, {"addons.welcome.role": checkedRole.id});
+            return message.reply({ embeds: [new Discord.MessageEmbed().setDescription(`Set the welcome role to: <@&${checkedRole.id}>.`).setColor(client.config.color)] });
+           }
+        }
+      }
+
       // None of the requirements were met so return usage error
       return client.embed.usage(message, data);
     } catch (err) {
@@ -143,7 +170,7 @@ module.exports = {
       const keygen = require('keygen');
       const errKey = keygen.url(10);
       const errorLog = new WebhookClient({
-        url: Webhooks.errors,
+        url: client.config.Webhooks.errors,
       });
       const devEmbed = new MessageEmbed()
         .setTitle("⛈️ Rainy | Errors ⛈️")
@@ -171,7 +198,7 @@ module.exports = {
       const userEmbed = new MessageEmbed()
         .setTitle("⛈️ Rainy | Errors ⛈️")
         .setDescription(
-          `An error has occured running this command. Please DM <@${ownerid}> with the following error key: \`${errKey}\``
+          `An error has occured running this command. Please DM <@${client.config.ownerid}> with the following error key: \`${errKey}\``
         )
         .setColor("RED");
       message.reply({ embeds: [userEmbed] });

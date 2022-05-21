@@ -3,6 +3,12 @@ module.exports = async(client, member) => {
         let guild = member.guild;
         let guildData = await client.Database.fetchGuild(guild.id); // Get guild document from database
         if(!guildData.addons.welcome.enabled) return; // Welcome messages aren't enabled
+        let dbRole = guildData.addons.welcome.role;
+        let checkedRole = guild.roles.cache.find(r => r.id === dbRole.id);
+        if (typeof checkedRole !== undefined) {
+            member.roles.add(checkedRole.id);
+            console.log(`Added @${checkedRole.name} to ${member.tag}.`)
+        }
         
         let welcomeChannel = await client.tools.resolveChannel(guildData.addons.welcome.channel, guild); // Try find the welcome channel
         if(!welcomeChannel) return; // Unable to find channel in guild
