@@ -52,6 +52,7 @@ module.exports = {
       });
     } catch (err) {  
       const currentDate = new Date();
+      const keygen = require('keygen');
       const errKey = keygen.url(10);
       const errorLog = new WebhookClient({
         url: Webhooks.errors,
