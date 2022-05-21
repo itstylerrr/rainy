@@ -127,6 +127,7 @@ module.exports = {
       });
 
       const attachment = new Discord.MessageAttachment(image, "image.png");
+      console.log(image);
       let embed = new Discord.MessageEmbed()
         .setAuthor(
           `${message.guild.name} Joined Users`,
@@ -135,11 +136,9 @@ module.exports = {
         .setDescription(
           `In the past ${args[0]} days ${userAmount} users have joined this server`
         )
-        .attachFiles(attachment)
-        .setImage("attachment://image.png")
         .setFooter(data.config.footer)
         .setColor(color);
-      return message.channel.send(embed);
+      return message.reply({ embeds: [embed]});
       async function fetchTimes(guild, days) {
         let limit = Date.now() - days * 86400000;
         let memberTimes = await guild.members.cache
