@@ -63,6 +63,5 @@ module.exports = {
             data.user.cash = Number(data.user.cash) - Number(money)
             data.user.save();
         }
-
     }
 }
