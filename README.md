@@ -38,7 +38,8 @@ invite me
  - [x] Finish economy
  - [x] Add a chatbot
  - [x] Add @users instead of URLs to Image Manip commands.
- - [ ] Get 50 + commands; current: 44
+ - [x] Get to 50 total **working** commands.
+ - [ ] Get 75 + commands; current: 52
  - [ ] Add music player
  - [ ] Add moderation commands using database
  - [ ] Create slash commands
