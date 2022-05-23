@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const { Webhooks } =require("../../config.json");
 
 module.exports = {
   name: "testlogs",
@@ -38,16 +39,17 @@ module.exports = {
         )
         .setTimestamp()
         .setColor(message.guild.me.displayHexColor);
-      loggingCh.send({ embeds: [logEmbed] });
+        message.reply({content: "disabled"});
+      // loggingCh.send({ embeds: [logEmbed] });
     } catch (err) {
       client.logger.error(`Ran into an error while executing ${data.cmd.name}`);
       console.log(err);
       const currentDate = new Date();
       const errKey = keygen.url(10);
-      const errorLog = new WebhookClient({
+      const errorLog = new Discord.WebhookClient({
         url: Webhooks.errors,
       });
-      const devEmbed = new MessageEmbed()
+      const devEmbed = new Discord.MessageEmbed()
         .setTitle("⛈️ Rainy | Errors ⛈️")
         .setDescription(`**Error:**\n\n${err}\n`)
         .addFields(
@@ -70,15 +72,14 @@ module.exports = {
         )
         .setColor("RED");
 
-      const userEmbed = new MessageEmbed()
+      const userEmbed = new Discord.MessageEmbed()
         .setTitle("⛈️ Rainy | Errors ⛈️")
         .setDescription(
           `An error has occured running this command. Please DM <@${ownerid}> with the following error key: \`${errKey}\``
         )
         .setColor("RED");
-        message.reply({content: "disabeled"})
-    //   message.reply({ embeds: [userEmbed] });
-    //   errorLog.send({ embeds: [devEmbed] });
+      message.reply({ embeds: [userEmbed] });
+      errorLog.send({ embeds: [devEmbed] });
       return;
     }
   },

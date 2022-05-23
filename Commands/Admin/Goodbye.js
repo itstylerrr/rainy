@@ -1,4 +1,5 @@
 const Discord = require('discord.js')
+const { Webhooks } =require("../../config.json");
 
 module.exports = {
   name: "goodbye",
@@ -141,10 +142,10 @@ module.exports = {
       const currentDate = new Date();
       const keygen = require('keygen');
       const errKey = keygen.url(10);
-      const errorLog = new WebhookClient({
+      const errorLog = new Discord.WebhookClient({
         url: Webhooks.errors,
       });
-      const devEmbed = new MessageEmbed()
+      const devEmbed = new Discord.MessageEmbed()
         .setTitle("⛈️ Rainy | Errors ⛈️")
         .setDescription(`**Error:**\n\n${err}\n`)
         .addFields(
@@ -167,7 +168,7 @@ module.exports = {
         )
         .setColor("RED");
   
-      const userEmbed = new MessageEmbed()
+      const userEmbed = new Discord.MessageEmbed()
         .setTitle("⛈️ Rainy | Errors ⛈️")
         .setDescription(
           `An error has occured running this command. Please DM <@${ownerid}> with the following error key: \`${errKey}\``

@@ -3,7 +3,10 @@ const {
   MessageActionRow,
   MessageButton,
   Message,
+  WebhookClient,
 } = require("discord.js");
+const { Webhooks } =require("../../config.json");
+const DB = require("../../Database/Schema/Guild");
 
 module.exports = {
   name: "setlogging",
