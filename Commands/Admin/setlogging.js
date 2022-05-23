@@ -5,13 +5,13 @@ const {
   Message,
   WebhookClient,
 } = require("discord.js");
-const { Webhooks, ownerid } =require("../../config.json");
+const { Webhooks, ownerid } = require("../../config.json");
 const DB = require("../../Database/Schema/Guild");
 
 module.exports = {
   name: "setlogging",
   usage: [
-    "Set the log channel for your server.```{prefix}setlogging <channelId>``` To disable logging: ```{prefix}setlogging remove",
+    "Set the log channel for your server:```{prefix}setlogging <channelId>``` To disable logging: ```{prefix}setlogging remove```",
   ],
   enabled: true,
   aliases: ["logging"],
@@ -26,13 +26,18 @@ module.exports = {
   // Execute contains content for the command
   async execute(client, message, args, data) {
     try {
-        if (args[0].toLowerCase() === "remove") {
-            data.guild.addons.settings.loggingId = false
-            data.guild.markModified('addons.settings');
-            await data.guild.save();
-            await message.reply('Remove logging from this server.')
-            return;
-        }
+      if (!args[0])
+        return message.reply({
+          content: `Incorrect usage: \n\n ${data.cmd.usage}`,
+        });
+      if (args[0].toLowerCase() === "remove") {
+        await DB.findOneAndUpdate(
+          { id: message.guild.id },
+          { "addons.settings.loggingId": null }
+        );
+        await message.reply("Remove logging from this server.");
+        return;
+      }
       const verifyEmbed = new MessageEmbed()
         .setTitle("Are you sure?")
         .setDescription(
@@ -90,7 +95,9 @@ module.exports = {
       let channel = await client.tools.resolveChannel(args[0], message.guild);
       if (!channel)
         return message.reply("Unable to find the mentioned channel");
-    channel.send(`We believe this message is for you <@${message.author.id}>... 👇`)
+      channel.send(
+        `We believe this message is for you <@${message.author.id}>... 👇`
+      );
       channel.send({
         embeds: [verifyEmbed],
         components: [btnRow],
@@ -103,24 +110,25 @@ module.exports = {
       });
       collector.on("collect", async (i) => {
         if (i.customId === "confirmBtn") {
-            try {
-                data.guild.addons.settings.loggingId = channel.id
-                data.guild.markModified('addons.settings');
-                await data.guild.save();
-            } catch (err) {
-                await i.update({
-                    content: `Error updating database, talk to developers... \`\`\`${err}\`\`\``
-                })
-            }
+          try {
+            await DB.findOneAndUpdate(
+              { id: message.guild.id },
+              { "addons.settings.loggingId": channel.id }
+            );
+          } catch (err) {
+            await i.update({
+              content: `Error updating database, talk to developers... \`\`\`${err}\`\`\``,
+            });
+          }
           await i.update({
             embeds: [finishEmbed],
-            components: [confirmFinishRow]
+            components: [confirmFinishRow],
           });
         } else {
           if (i.customId === "declineBtn") {
             await i.update({
               embeds: [failEmbed],
-              components: [declineFinishRow]
+              components: [declineFinishRow],
             });
           }
         }
@@ -129,7 +137,7 @@ module.exports = {
       client.logger.error(`Ran into an error while executing ${data.cmd.name}`);
       console.log(err);
       const currentDate = new Date();
-      const keygen = require('keygen');
+      const keygen = require("keygen");
       const errKey = keygen.url(10);
       const errorLog = new WebhookClient({
         url: Webhooks.errors,
@@ -152,11 +160,11 @@ module.exports = {
           },
           {
             name: "Created:",
-            value: `<t:${parseInt(message.createdTimestamp / 1000)}:R>`
+            value: `<t:${parseInt(message.createdTimestamp / 1000)}:R>`,
           }
         )
         .setColor("RED");
-  
+
       const userEmbed = new MessageEmbed()
         .setTitle("⛈️ Rainy | Errors ⛈️")
         .setDescription(
