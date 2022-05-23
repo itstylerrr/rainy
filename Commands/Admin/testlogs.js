@@ -1,5 +1,8 @@
 const Discord = require("discord.js");
-const { Webhooks, ownerid } =require("../../config.json");
+const { Client, Message } = require("discord.js");
+const { Webhooks, ownerid } = require("../../config.json");
+const DB = require("../../Database/Schema/Guild");
+const keygen = require("keygen");
 
 module.exports = {
   name: "testlogs",
@@ -15,32 +18,40 @@ module.exports = {
   cooldown: 5000,
 
   // Execute contains content for the command
+
+  /**
+   * 
+   * @param {Client} client
+   * @param {Message} message
+   */
   async execute(client, message, args, data) {
     try {
-      message.reply(
-        "Server logs tested... If enabled, check your logging channel that you set for rainy. If disabled, nothing besides this should be sent anywhere when this was ran."
-      );
-      const loggingId = data.guild.addons.settings.loggingId;
-      if (loggingId == false) return;
-      const loggingCh = client.channels.cache.get(loggingId);
-      const currentDate = new Date();
-      const logEmbed = new Discord.MessageEmbed()
-        .setTitle("📜 rainy's logging 📜")
-        .addFields(
-          { name: "Command Name:", value: data.cmd.name },
-          { name: "Command Type:", value: data.cmd.category },
-          { name: "Ran By:", value: `<@${message.author.id}>` },
-          { name: "Ran In:", value: `<#${message.channel.id}>` },
-          { name: "Time Ran:", value: `${currentDate.toLocaleString()} CST` }
-        )
-        .setFooter(
-          `Ran by: ${message.member.displayName}`,
-          message.author.displayAvatarURL({ dynamic: true })
-        )
-        .setTimestamp()
-        .setColor(message.guild.me.displayHexColor);
-        message.reply({content: "disabled"});
-      // loggingCh.send({ embeds: [logEmbed] });
+      const guildDb = await DB.findOne({
+        id: message.guild.id
+      });
+      chFromDb = guildDb.addons.settings.loggingId
+      const findCh = await client.tools.resolveChannel(chFromDb, message.guild);
+      if (!findCh) {
+        
+      } else {
+        const currentDate = new Date();
+        const logEmbed = new Discord.MessageEmbed()
+          .setTitle("📜 rainy's logging 📜")
+          .addFields(
+            { name: "Command Name:", value: data.cmd.name },
+            { name: "Command Type:", value: data.cmd.category },
+            { name: "Ran By:", value: `<@${message.author.id}>` },
+            { name: "Ran In:", value: `<#${message.channel.id}>` },
+            { name: "Time Ran:", value: `${currentDate.toLocaleString()} CST` }
+          )
+          .setFooter(
+            `Ran by: ${message.member.displayName}`,
+            message.author.displayAvatarURL({ dynamic: true })
+          )
+          .setTimestamp()
+          .setColor(message.guild.me.displayHexColor);
+          findCh.send({embeds: [logEmbed]});
+      }
     } catch (err) {
       client.logger.error(`Ran into an error while executing ${data.cmd.name}`);
       console.log(err);
