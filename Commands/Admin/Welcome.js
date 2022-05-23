@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const { Client, Message, WebhookClient, MessageEmbed } = require('discord.js');
-const { Webhooks } =require("../../config.json");
+const { Webhooks, ownerid } =require("../../config.json");
 const DB = require("../../Database/Schema/Guild");
 
 module.exports = {
@@ -171,7 +171,7 @@ module.exports = {
       const keygen = require('keygen');
       const errKey = keygen.url(10);
       const errorLog = new WebhookClient({
-        url: client.config.Webhooks.errors,
+        url: Webhooks.errors,
       });
       const devEmbed = new MessageEmbed()
         .setTitle("⛈️ Rainy | Errors ⛈️")
@@ -199,7 +199,7 @@ module.exports = {
       const userEmbed = new MessageEmbed()
         .setTitle("⛈️ Rainy | Errors ⛈️")
         .setDescription(
-          `An error has occured running this command. Please DM <@${client.config.ownerid}> with the following error key: \`${errKey}\``
+          `An error has occured running this command. Please DM <@${ownerid}> with the following error key: \`${errKey}\``
         )
         .setColor("RED");
       message.reply({ embeds: [userEmbed] });

@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const { CanvasRenderService } = require("chartjs-node-canvas");
-const { Webhooks } =require("../../config.json");
+const { Webhooks, ownerid } =require("../../config.json");
 
 const width = 1200;
 const height = 375;

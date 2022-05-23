@@ -5,7 +5,7 @@ const {
   Message,
   WebhookClient,
 } = require("discord.js");
-const { Webhooks } =require("../../config.json");
+const { Webhooks, ownerid } =require("../../config.json");
 const DB = require("../../Database/Schema/Guild");
 
 module.exports = {

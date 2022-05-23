@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { Webhooks } =require("../../config.json");
+const { Webhooks, ownerid } =require("../../config.json");
 
 module.exports = {
   name: "configuration",
