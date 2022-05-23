@@ -48,20 +48,22 @@ module.exports = {
             for(let i=0; i < categories.length; i++){
                 let category = categories[i];
                 let commands = await client.commands.filter(x => x.category === category).map(x => x.name);
+                let cmdsCount = await client.commands.filter(x => x.category === category).size
+                var totalCmds = await client.commands.size
                 let cmdText = commands.length < 1 ? "None" : commands.join(", ");
                 let obj = {
-                    name: category,
+                    name: `${category} (${cmdsCount})`,
                     value: `\`\`\`${cmdText}\`\`\``
                 }
                 cmdArr.push(obj);
             }
             return client.embed.send(message, {
                 author: {
-                    name: `Help list`,
+                    name: `Rainy's Help Menu | Total Commands: ${totalCmds}`,
                     icon_url: message.client.user.displayAvatarURL()
                 },
                 description: `Type \`${data.guild.prefix}help [command]\` for more help. For example, ${data.guild.prefix}help blacklist`,
-                fields: cmdArr
+                fields: cmdArr,
             })
         }catch(err){
             client.logger.error(`Ran into an error while executing ${data.cmd.name}`)
