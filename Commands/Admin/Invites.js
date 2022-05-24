@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const { CanvasRenderService } = require("chartjs-node-canvas");
 const { Webhooks, ownerid } =require("../../config.json");
+const DB = require("../../Database/Schema/Guild");
 
 const width = 1200;
 const height = 375;
