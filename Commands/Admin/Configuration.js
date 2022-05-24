@@ -28,7 +28,7 @@ module.exports = {
       if (!findCh) {
       } else {
         const currentDate = new Date();
-        const logEmbed = new MessageEmbed()
+        const logEmbed = new Discord.MessageEmbed()
           .setTitle("📜 rainy's logging 📜")
           .addFields(
             { name: "Command Name:", value: data.cmd.name },
