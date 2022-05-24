@@ -43,7 +43,32 @@ module.exports = {
   // Execute contains content for the command
   async execute(client, message, args, data) {
     try {
-
+      const guildDb = await DB.findOne({
+        id: message.guild.id,
+      });
+      chFromDb = guildDb.addons.settings.loggingId;
+      const findCh = await client.tools.resolveChannel(chFromDb, message.guild);
+      if (!findCh) {
+      } else {
+        const currentDate = new Date();
+        const logEmbed = new MessageEmbed()
+          .setTitle("📜 rainy's logging 📜")
+          .addFields(
+            { name: "Command Name:", value: data.cmd.name },
+            { name: "Command Type:", value: data.cmd.category },
+            { name: "Ran By:", value: `<@${message.author.id}>` },
+            { name: "Ran In:", value: `<#${message.channel.id}>` },
+            { name: "Time Ran:", value: `${currentDate.toLocaleString()} CST` },
+            { name : "Timestamp:", value: `<t:${parseInt(message.createdTimestamp / 1000)}:R>`}
+          )
+          .setFooter(
+            `Ran by: ${message.member.displayName}`,
+            message.author.displayAvatarURL({ dynamic: true })
+          )
+          .setTimestamp()
+          .setColor(message.guild.me.displayHexColor);
+        findCh.send({ embeds: [logEmbed] });
+      }
       let days = isNaN(Number(args[0])) ? 30 : Number(args[0]);
       let times = await fetchTimes(message.guild, days);
 
