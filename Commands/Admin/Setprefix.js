@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const { Webhooks, ownerid } =require("../../config.json");
+const DB = require("../../Database/Schema/Guild");
 
 module.exports = {
   name: "setprefix",
