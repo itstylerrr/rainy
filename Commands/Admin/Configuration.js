@@ -47,12 +47,25 @@ module.exports = {
           .setColor(message.guild.me.displayHexColor);
         findCh.send({ embeds: [logEmbed] });
       }
+      var cbCh = data.guild.addons.settings.cbChId;
+      if (cbCh ===null) {
+        cbCh = "none"
+      } else {
+        cbCh = `<#${data.guild.addons.settings.cbChId}>`
+      }
+      var logCh = data.guild.addons.settings.loggingId;
+      if (logCh === null) {
+        logCh = "none"
+      } else {
+        logCh = `<#${data.guild.addons.settings.loggingId}>`
+      }
       let welcome = !data.guild.addons.welcome
         ? `Enabled: False`
         : `Enabled: True\nChannel: <#${data.guild.addons.welcome.channel}>\nImage: ${data.guild.addons.welcome.image}\nEmbed: ${data.guild.addons.welcome.embed}\nRole: <@&${data.guild.addons.welcome.role}>`;
       let goodbye = !data.guild.addons.goodbye
         ? `Enabled: False`
         : `Enabled: True\nChannel: <#${data.guild.addons.goodbye.channel}>\nImage: ${data.guild.addons.goodbye.image}\nEmbed: ${data.guild.addons.goodbye.embed}`;
+      let settings = `Chatbot Channel: ${cbCh}\nLogging Channel: ${logCh}`
       return client.embed.send(message, {
         description: `Use admins commands to change these settings`,
         fields: [
@@ -62,15 +75,20 @@ module.exports = {
             inline: true,
           },
           {
-            name: `Welcome settings`,
+            name: `Welcome Settings:`,
             value: welcome,
             inline: true,
           },
           {
-            name: `Goodbye settings`,
+            name: `Goodbye Settings:`,
             value: goodbye,
             inline: true,
           },
+          {
+            name: `Guild Settings:`,
+            value: settings,
+            inline: true
+          }
         ],
         author: {
           name: `Guild Configurations`,
