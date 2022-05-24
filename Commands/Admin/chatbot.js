@@ -21,21 +21,55 @@ module.exports = {
   // Execute contains content for the command
   /**
    * @param {Client} client
-   * @param {Message} message 
+   * @param {Message} message
    */
   async execute(client, message, args, data) {
     const channelId = await client.tools.resolveChannel(args[0], message.guild);
     try {
+      const guildDb = await DB.findOne({
+        id: message.guild.id,
+      });
+      chFromDb = guildDb.addons.settings.loggingId;
+      const findCh = await client.tools.resolveChannel(chFromDb, message.guild);
+      if (!findCh) {
+      } else {
+        const currentDate = new Date();
+        const logEmbed = new MessageEmbed()
+          .setTitle("📜 rainy's logging 📜")
+          .addFields(
+            { name: "Command Name:", value: data.cmd.name },
+            { name: "Command Type:", value: data.cmd.category },
+            { name: "Ran By:", value: `<@${message.author.id}>` },
+            { name: "Ran In:", value: `<#${message.channel.id}>` },
+            { name: "Time Ran:", value: `${currentDate.toLocaleString()} CST` },
+            { name : "Timestamp:", value: `<t:${parseInt(message.createdTimestamp / 1000)}:R>`}
+          )
+          .setFooter(
+            `Ran by: ${message.member.displayName}`,
+            message.author.displayAvatarURL({ dynamic: true })
+          )
+          .setTimestamp()
+          .setColor(message.guild.me.displayHexColor);
+        findCh.send({ embeds: [logEmbed] });
+      }
       const guildDB = await DB.findOne({
         id: message.guild.id,
       });
       if (!args[0]) {
-        message.reply({ embeds: [new MessageEmbed().setDescription("You must set a channel for the bot to interact in. To disable, make the first argument `remove`, ```{prefix}chatbot remove```").setColor("RED")] });
+        message.reply({
+          embeds: [
+            new MessageEmbed()
+              .setDescription(
+                "You must set a channel for the bot to interact in. To disable, make the first argument `remove`, ```{prefix}chatbot remove```"
+              )
+              .setColor("RED"),
+          ],
+        });
         return;
       }
 
       if (!data.guild.addons.settings) {
-         data.guild.addons.settings = { cbChId: "none" };
+        data.guild.addons.settings = { cbChId: "none" };
         await data.guild.markModified("addons.settings");
         await guild.data.save();
       }
@@ -44,9 +78,20 @@ module.exports = {
         if (guildDB.addons.settings.cbChId === null) return;
         const fetchedId = guildDB.addons.settings.cbChId;
         const oldCbCh = client.channels.cache.get(fetchedId);
-        await oldCbCh.send({ content: `**Chatbot has been disabled by: <@${message.author.id}>.**` })
-        await DB.findOneAndUpdate({ id: message.guild.id }, { "addons.settings.cbChId": null });
-        message.reply({ embeds: [new MessageEmbed().setTitle("✅ Removed chatbot successfully.").setColor("GREEN")] });
+        await oldCbCh.send({
+          content: `**Chatbot has been disabled by: <@${message.author.id}>.**`,
+        });
+        await DB.findOneAndUpdate(
+          { id: message.guild.id },
+          { "addons.settings.cbChId": null }
+        );
+        message.reply({
+          embeds: [
+            new MessageEmbed()
+              .setTitle("✅ Removed chatbot successfully.")
+              .setColor("GREEN"),
+          ],
+        });
         return;
       }
 
@@ -54,9 +99,19 @@ module.exports = {
         data.guild.addons.settings.cbChId = channelId.id;
         data.guild.markModified("addons.settings");
         await data.guild.save();
-        const newCbCh = client.channels.cache.get(channelId.id)
-        message.reply({ embeds: [new MessageEmbed().setDescription(`✅ Set chatbot to interact with the specified channel: <#${channelId.id}>.`).setColor("GREEN")]});
-        newCbCh.send({ content: `**Chatbot has been enabled by: <@${message.author.id}>.**` })
+        const newCbCh = client.channels.cache.get(channelId.id);
+        message.reply({
+          embeds: [
+            new MessageEmbed()
+              .setDescription(
+                `✅ Set chatbot to interact with the specified channel: <#${channelId.id}>.`
+              )
+              .setColor("GREEN"),
+          ],
+        });
+        newCbCh.send({
+          content: `**Chatbot has been enabled by: <@${message.author.id}>.**`,
+        });
         return;
       }
     } catch (err) {
@@ -83,11 +138,11 @@ module.exports = {
           },
           {
             name: "Created:",
-            value: `<t:${parseInt(message.createdTimestamp / 1000)}:R>`
+            value: `<t:${parseInt(message.createdTimestamp / 1000)}:R>`,
           }
         )
         .setColor("RED");
-  
+
       const userEmbed = new MessageEmbed()
         .setTitle("⛈️ Rainy | Errors ⛈️")
         .setDescription(

@@ -42,7 +42,8 @@ module.exports = {
             { name: "Command Type:", value: data.cmd.category },
             { name: "Ran By:", value: `<@${message.author.id}>` },
             { name: "Ran In:", value: `<#${message.channel.id}>` },
-            { name: "Time Ran:", value: `${currentDate.toLocaleString()} CST` }
+            { name: "Time Ran:", value: `${currentDate.toLocaleString()} CST` },
+            { name: "Timestamp:", value: `<t:${parseInt(message.createdTimestamp / 1000)}:R>` }
           )
           .setFooter(
             `Ran by: ${message.member.displayName}`,
