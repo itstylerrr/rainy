@@ -6,7 +6,7 @@ module.exports = {
     name: "captcha",
     usage: ["Generate a captcha form like image.```{prefix}captcha <imageurl> <username>```"],
     enabled: true,
-    aliases: [""],
+    aliases: [],
     category: "Image Manipulation",
     memberPermissions: [],
     botPermissions: [ "SEND_MESSAGES", "EMBED_LINKS" ],
