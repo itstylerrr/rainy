@@ -7,6 +7,9 @@ const chalk = require("chalk");
 const LegacyCmdsTable = new ascii("🔃 Legacy Commands 🔃");
 const SlashCmdsTable = new ascii("🔃 Slash Commands 🔃");
 const EventsTable = new ascii("🔃 Events 🔃");
+const{ promisify } = require('util');
+const { glob } = require('glob');
+const PG = promisify(glob);
 (fs = require("fs")),
   (mongoose = require("mongoose")),
   (util = require("util")),
@@ -99,6 +102,29 @@ client.on("messageCreate", async (message) => {
   } else {
       return;
   }
+});
+
+client.on("guildCreate", async (guild) => {
+  const newGuild = await new Discord.WebhookClient({
+    url: config.Webhooks.joins,
+  });
+  const Embed = new Discord.MessageEmbed()
+    .setTitle("☔ Rainy Joined A New Guild! 😁")
+    .setAuthor(guild.name, guild.iconURL({ dynamic: true }))
+    .addFields(
+      { name: "Guild Name:", value: `${guild.name}`, inline: true },
+      { name: "Guild Members:", value: `\`${guild.memberCount} members\``, inline: true },
+      {
+          name: "Client Total Users:",
+          value:
+            `\`${client.guilds.cache.reduce((a, b) => a + b.memberCount, 0)} users\``,
+        },
+        
+        { name: "Total Guild Count:", value: `\`${client.guilds.cache.size} guilds\`` },
+        { name: "Timestamp:", value: `<t:${parseInt(guild.joinedTimestamp / 1000)}:R>`}
+    )
+    .setColor("GREEN")
+    newGuild.send({ embeds: [Embed] })
 });
 
 process.on("unhandledRejection", (err) => {
