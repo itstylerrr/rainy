@@ -8,7 +8,7 @@ module.exports = {
     "Generate an image that adds a profile picture to a top 3 threats list!```{prefix}threats <imageurl>```",
   ],
   enabled: true,
-  aliases: [""],
+  aliases: [],
   category: "Image Manipulation",
   memberPermissions: [],
   botPermissions: ["SEND_MESSAGES", "EMBED_LINKS"],

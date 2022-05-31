@@ -6,7 +6,7 @@ module.exports = {
     name: "lolice",
     usage: ["Lolice cheif!```{prefix}lolice <imageurl>```"],
     enabled: true,
-    aliases: [""],
+    aliases: [],
     category: "Image Manipulation",
     memberPermissions: [],
     botPermissions: [ "SEND_MESSAGES", "EMBED_LINKS" ],
